@@ -174,6 +174,10 @@ class DebugbarBrowserTest extends BrowserTestCase
 
     public function testDatabaseCollectsQueries()
     {
+        if (version_compare($this->app->version(), '10', '<')) {
+            $this->markTestSkipped('This test is not compatible with Laravel 9.x and below');
+        }
+
         $this->browse(function (Browser $browser) {
             $browser->visit('web/query')
                 ->waitFor('.phpdebugbar')
